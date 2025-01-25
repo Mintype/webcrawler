@@ -1145,10 +1145,11 @@ dependencies = [
 
 [[package]]
 name = "webcrawler"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "futures-io",
  "reqwest",
+ "url",
 ]
 
 [[package]]
