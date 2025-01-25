@@ -5,6 +5,7 @@ edition = "2021"
 authors = ["Mintype"]
 description = "A simple Rust web crawler"
 repository = "https://github.com/Mintype/webcrawler"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
