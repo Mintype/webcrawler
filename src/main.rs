@@ -4,35 +4,23 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 fn main() {
+
+    let mut num_of_valid_routes = 0;
+
     // Create a new String to hold the user input
-    let mut inputURL = String::new();
+    let mut input_url = String::new();
 
     // Print a message to the user
     println!("Enter a URL:");
 
     // Read the user input
     std::io::stdin()
-        .read_line(&mut inputURL)
+        .read_line(&mut input_url)
         .expect("Failed to read URL");
 
     // Trim the input URL
-    inputURL = inputURL.trim().to_string();
+    input_url = input_url.trim().to_string();
 
-    // Make an HTTP GET request to the URL
-    match get(&inputURL) {
-        Ok(response) => {
-            if response.status().is_success() {
-                // Print the response text
-                match response.text() {
-                    Ok(text) => println!("Response: {}", text),
-                    Err(e) => println!("Failed to read response text: {}", e),
-                }
-            } else {
-                println!("Request failed with status: {}", response.status());
-            }
-        }
-        Err(e) => println!("Failed to make request: {}", e),
-    }
 
     // Define the path to the file
     let path = Path::new("src/routes.txt");
@@ -47,16 +35,20 @@ fn main() {
     for line in reader.lines() {
         match line {
             Ok(line) => {
+                if input_url.ends_with("/") {
+                    input_url.pop();
+                }
+                
                 // Concatenate the input URL with the route without moving input_url
-                let full_url = format!("{}/{}", inputURL, line.trim());
-
-                // // Print the concatenated URL
-                println!("Full URL: {}", full_url);
+                let full_url = format!("{}/{}", input_url, line.trim());
 
                 // Make an HTTP GET request to the concatenated URL
                 match get(&full_url) {
                     Ok(response) => {
                         println!("URL: {} - Status Code: {}", full_url, response.status());
+                        if response.status().is_success() {
+                            num_of_valid_routes += 1;
+                        }
                     }
                     Err(_) => {
                         println!("URL: {} - Failed to get a response", full_url);
@@ -66,4 +58,5 @@ fn main() {
             Err(e) => println!("Error reading line: {}", e),
         }
     }
+    println!("Number of valid routes: {}", num_of_valid_routes);
 }
