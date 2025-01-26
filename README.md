@@ -12,7 +12,7 @@ This Rust library is a simple web crawler that checks the validity of routes on 
 
 ## Installation
 
-### 1. Add `route_checker` to Your `Cargo.toml`
+### 1. Add `webcrawler` to Your `Cargo.toml`
 
 If you're using this library in your own Rust project, add the following to your `Cargo.toml` under `[dependencies]`:
 
