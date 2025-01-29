@@ -64,7 +64,7 @@
 use webcrawler::WebCrawler;
 
 fn main() {
-    let base_url = "https://www.youtube.com/";
+    let base_url = "https://youtube.com";
     let file_path = "src/routes.txt";
 
     let mut crawler = WebCrawler::new();
@@ -77,4 +77,13 @@ fn main() {
             println!("Error: {}", e);
         }
     }
+
+    // crawler.print_visited_urls();
+
+    let visited_urls = crawler.get_visited_urls();
+
+    for url in visited_urls {
+        println!("{}", url);
+    }
+    
 }
